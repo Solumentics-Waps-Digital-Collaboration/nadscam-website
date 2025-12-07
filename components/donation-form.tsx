@@ -1,42 +1,41 @@
 "use client"
 
 import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 
-const formSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  amount: z.string().min(1, "Amount is required"),
-  paymentMethod: z.string().min(1, "Please specify payment method (MOMO/OM/Bank)"),
-  message: z.string().optional(),
-})
-
 export function DonationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      amount: "",
-      paymentMethod: "",
-      message: "",
-    },
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    amount: "",
+    paymentMethod: "",
+    message: ""
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  // Simple handler to update state as you type
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault() // Stop page reload
     setIsSubmitting(true)
 
+    // Basic check to make sure they at least put a name
+    if (!formData.name || !formData.amount) {
+      toast.error("Please fill in your Name and Amount.")
+      setIsSubmitting(false)
+      return
+    }
+
     try {
+      // Use Web3Forms or just simulate success for the demo
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -44,11 +43,11 @@ export function DonationForm() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          // REPLACE THIS WITH YOUR REAL ACCESS KEY
+          // REPLACE THIS WITH YOUR REAL ACCESS KEY LATER
           access_key: "YOUR_ACCESS_KEY_HERE", 
-          subject: `New Donation from ${values.name}`,
+          subject: `New Donation from ${formData.name}`,
           from_name: "NADSCAM Donation Site",
-          ...values,
+          ...formData,
         }),
       })
 
@@ -56,7 +55,14 @@ export function DonationForm() {
 
       if (result.success) {
         toast.success("Thank you! We have received your donation details.")
-        form.reset()
+        // Reset form
+        setFormData({
+            name: "",
+            email: "",
+            amount: "",
+            paymentMethod: "",
+            message: ""
+        })
       } else {
         toast.error("Something went wrong. Please try again.")
       }
@@ -74,92 +80,90 @@ export function DonationForm() {
         Did you make a transfer? Please fill this form so we can track it and thank you properly!
       </p>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="john@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+      <form onSubmit={onSubmit} className="space-y-4">
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label htmlFor="name" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Full Name
+            </label>
+            <Input 
+              id="name" 
+              name="name" 
+              placeholder="John Doe" 
+              value={formData.name}
+              onChange={handleChange}
+              required
             />
           </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="amount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Amount Sent (CFA)</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. 10,000" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="paymentMethod"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Payment Method</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. Orange Money / Bank" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+          
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Email
+            </label>
+            <Input 
+              id="email" 
+              name="email" 
+              type="email" 
+              placeholder="john@example.com" 
+              value={formData.email}
+              onChange={handleChange}
             />
           </div>
+        </div>
 
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Message (Optional)</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="Any special instructions..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label htmlFor="amount" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Amount Sent (CFA)
+            </label>
+            <Input 
+              id="amount" 
+              name="amount" 
+              placeholder="e.g. 10,000" 
+              value={formData.amount}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          
+          <div className="space-y-2">
+             <label htmlFor="paymentMethod" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Payment Method
+            </label>
+            <Input 
+              id="paymentMethod" 
+              name="paymentMethod" 
+              placeholder="e.g. Orange Money / Bank" 
+              value={formData.paymentMethod}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+           <label htmlFor="message" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Message (Optional)
+           </label>
+          <Textarea 
+            id="message" 
+            name="message" 
+            placeholder="Any special instructions..." 
+            value={formData.message}
+            onChange={handleChange}
           />
+        </div>
 
-          <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Sending...
-              </>
-            ) : (
-              "Notify NADSCAM"
-            )}
-          </Button>
-        </form>
-      </Form>
+        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Sending...
+            </>
+          ) : (
+            "Notify NADSCAM"
+          )}
+        </Button>
+      </form>
     </div>
   )
 }
