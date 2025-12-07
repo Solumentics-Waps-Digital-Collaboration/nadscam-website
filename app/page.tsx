@@ -5,6 +5,7 @@ import { MissionSection } from "@/components/mission-section"
 import { ServicesSection } from "@/components/services-section"
 import { WhyUsSection } from "@/components/why-us-section"
 import { ImpactSection } from "@/components/impact-section"
+import { DonationSection } from "@/components/donation-section" // Imported
 import { GallerySection } from "@/components/gallery-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { ProductsSection } from "@/components/products-section"
@@ -24,6 +25,7 @@ export default function Home() {
       <ServicesSection />
       <WhyUsSection />
       <ImpactSection />
+      <DonationSection /> {/* Added here */}
       <GallerySection />
       <TestimonialsSection />
       <ProductsSection />

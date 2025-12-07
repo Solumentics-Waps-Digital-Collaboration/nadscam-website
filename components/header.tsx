@@ -17,6 +17,7 @@ const navLinks = [
   { href: "#testimonials", label: "Testimonials" },
   { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
+  { href: "#donate", label: "Donate" }, // Added Donate Link
 ]
 
 export function Header() {
@@ -57,7 +58,7 @@ export function Header() {
           <a href="/" className="flex items-center">
             <div className="relative w-20 h-20 md:w-26 md:h-26">
               <Image
-                src="/logo.jpg"
+                src="/logo.png"
                 alt="NADSCAM Logo"
                 fill
                 className="object-contain"
