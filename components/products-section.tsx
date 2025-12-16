@@ -6,9 +6,9 @@ import { MessageCircle } from "lucide-react"
 const products = [
   {
     image: "/colorful-reading-literacy-flashcard-set-for-childr.jpg",
-    title: "Reading & Literacy Flashcard Set",
-    description: "Complete set of colorful flashcards for early reading development",
-    price: "Available for bulk orders",
+    title: "BEST Educational Flashcards",
+    description: "Flashcards are important because they make learning simple, visual, and engaging. They help children focus, improve memory, build vocabulary, and make lessons fun and interactive—especially for early learners and children with special needs.",
+    price: "Order flashcards from us for your children",
   },
   {
     image: "/mathematics-numbers-flashcards-counting-addition-s.jpg",

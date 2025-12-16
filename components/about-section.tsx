@@ -28,11 +28,47 @@ export function AboutSection() {
             NADSCAM is a family built from hope, compassion, and the belief that every child deserves a chance to shine.
             We stand beside children with special needs, giving them love, dignity, and the tools to grow.
           </p>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-10">
-            Every day, we fight to open doors that were once closed, and we hold the hands of families who feel alone.
-            We create equal, inclusive educational resources so every child—no matter their ability—can learn and
-            belong. NADSCAM is not just an organization; it is a heartbeat for children who deserve the world.
-          </p>
+          <div className="bg-white rounded-xl p-8 mb-8 shadow-lg border-2 border-nadscam-green/20">
+            <h3 className="text-2xl font-bold text-nadscam-green mb-4">
+              AT THE VOCATIONAL TRAINING INSTITUTE FOR SPECIAL NEEDS, INCLUSION & MENTORSHIP
+            </h3>
+            <p className="text-base text-muted-foreground mb-4 font-semibold">
+              We offer professional training in:
+            </p>
+            <ul className="space-y-2 mb-6 text-muted-foreground">
+              <li className="flex items-start">
+                <span className="text-nadscam-green mr-2">•</span>
+                <span>Speech Therapy</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-nadscam-green mr-2">•</span>
+                <span>Applied Behaviour Analysis (ABA)</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-nadscam-green mr-2">•</span>
+                <span>Jolly Phonics</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-nadscam-green mr-2">•</span>
+                <span>Montessori Education</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-nadscam-green mr-2">•</span>
+                <span>Craft Work & Creative Skills</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-nadscam-green mr-2">•</span>
+                <span>…and many more specialised programs</span>
+              </li>
+            </ul>
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">
+              With our team of experienced and passionate teachers, we empower trainees to become confident, 
+              skilled and compassionate professionals.
+            </p>
+            <p className="text-lg font-semibold text-nadscam-green">
+              Join our team and help make the world of special needs a truly wonderful place
+            </p>
+          </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
             {stats.map((stat, index) => (

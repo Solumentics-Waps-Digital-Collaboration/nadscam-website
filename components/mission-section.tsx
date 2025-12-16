@@ -15,8 +15,9 @@ export function MissionSection() {
           <h3 className="text-2xl font-bold mb-4 text-card-foreground">Our Mission</h3>
           <p className="text-muted-foreground leading-relaxed">
             To provide comprehensive, inclusive education and training for children with special needs, empowering them
-            to become autonomous, confident, and valued members of society. We create accessible learning resources that
-            break down barriers and open doors to opportunities.
+            to become autonomous, confident, and valued members of society. Through our Vocational Training Institute, 
+            we train passionate educators and therapists in specialized fields, while creating accessible learning resources 
+            that break down barriers and open doors to opportunities for every child.
           </p>
         </div>
 

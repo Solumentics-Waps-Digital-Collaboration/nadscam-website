@@ -6,12 +6,14 @@ import { SectionTitle } from "@/components/ui/section-title"
 import { X } from "lucide-react"
 
 const images = [
-  { src: "/students-learning-in-special-education-classroom-w.jpg", caption: "Students learning in our classroom" },
-  { src: "/children-doing-group-activities-playing-games-buil.jpg", caption: "Group activities building confidence" },
-  { src: "/colorful-educational-flashcards-for-children-readi.jpg", caption: "Our colorful educational flashcards" },
-  { src: "/happy-children-celebrating-achievement-graduation-.jpg", caption: "Children celebrating achievements" },
-  { src: "/teacher-giving-one-on-one-personalized-instruction.jpg", caption: "One-on-one personalized instruction" },
-  { src: "/community-outreach-family-support-group-meeting-to.jpg", caption: "Community outreach and family support" },
+  { src: "/nadscam-one-on-one-instruction-slate.jpg", caption: "One-on-one personalized instruction with educational materials" },
+  { src: "/nadscam-therapy-wheelchair-personalized-care.jpg", caption: "Specialized therapy and personalized care for every child" },
+  { src: "/nadscam-teacher-student-sight-words-lesson.jpg", caption: "Building literacy skills through sight words and phonics" },
+  { src: "/nadscam-group-craft-activity-playroom.jpg", caption: "Group learning activities developing creative and social skills" },
+  { src: "/nadscam-child-montessori-shape-sorting.jpg", caption: "Montessori education fostering independence and learning" },
+  { src: "/nadscam-student-celebrating-achievement.jpg", caption: "Celebrating achievements and building confidence" },
+  { src: "/nadscam-best-flashcards-product.jpg", caption: "Our BEST educational flashcards for early learners" },
+  { src: "/nadscam-hands-on-craft-learning.jpg", caption: "Hands-on craft work and creative skills development" },
 ]
 
 export function GallerySection() {
@@ -21,7 +23,7 @@ export function GallerySection() {
     <Section id="gallery" className="bg-muted">
       <SectionTitle title="See Our Work in Action" subtitle="Real moments, real impact, real hope" />
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {images.map((image, index) => (
           <button
             key={index}

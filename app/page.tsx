@@ -25,7 +25,7 @@ export default function Home() {
       <ServicesSection />
       <WhyUsSection />
       <ImpactSection />
-      <DonationSection /> {/* Added here */}
+      <DonationSection />
       <GallerySection />
       <TestimonialsSection />
       <ProductsSection />
