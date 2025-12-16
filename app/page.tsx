@@ -14,12 +14,14 @@ import { CTASection } from "@/components/cta-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
+import { InstituteIntroSection } from "@/components/institute-intro-section"
 
 export default function Home() {
   return (
     <main>
       <Header />
       <HeroSection />
+      <InstituteIntroSection />
       <AboutSection />
       <MissionSection />
       <ServicesSection />
