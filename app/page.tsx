@@ -15,6 +15,7 @@ import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { InstituteIntroSection } from "@/components/institute-intro-section"
+import { ChristmasEventSection } from "@/components/christmas-event-section"
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       <WhyUsSection />
       <ImpactSection />
       <DonationSection />
+      <ChristmasEventSection />
       <GallerySection />
       <TestimonialsSection />
       <ProductsSection />
