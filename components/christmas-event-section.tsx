@@ -5,50 +5,49 @@ import { Section } from "@/components/ui/section"
 import { SectionTitle } from "@/components/ui/section-title"
 import { cn } from "@/lib/utils"
 
-// THIS IS THE ARRAY YOU ASKED ABOUT
 const christmasImages = [
   {
-    src: "/christmas-2024/image_00ac9d.jpg", // The Welcome Sign
+    src: "/christmas-2024/image_00ac9d.jpg",
     alt: "Welcome to NADSCAM Vocational Training Institute sign with colorful decorations",
     className: "col-span-1 md:col-span-1", 
   },
   {
-    src: "/christmas-2024/image_00ff57.jpg", // Joyful laughing in wheelchair
+    src: "/christmas-2024/image_00ff57.jpg",
     alt: "Student laughing joyfully during the Christmas celebration",
-    className: "row-span-2", // This vertical shot deserves more height
+    className: "row-span-2",
   },
   {
-    src: "/christmas-2024/image_010204.jpg", // Students in blue tracksuits
+    src: "/christmas-2024/image_010204.jpg",
     alt: "Students in matching blue tracksuits watching the performances",
-    className: "col-span-2", // Wide shot looks better spanning two columns
+    className: "col-span-2",
   },
   {
-    src: "/christmas-2024/image_00acbe.jpg", // Gift giving/Flowers
+    src: "/christmas-2024/image_00acbe.jpg",
     alt: "Presentation of gifts and flowers to students",
     className: "",
   },
   {
-    src: "/christmas-2024/image_00fefc.jpg", // Woman speaking with mic
+    src: "/christmas-2024/image_00fefc.jpg",
     alt: "Opening remarks and speeches at the event",
     className: "",
   },
   {
-    src: "/christmas-2024/image_00fedf.jpg", // Cheering group
+    src: "/christmas-2024/image_00fedf.jpg",
     alt: "Students cheering and celebrating together",
     className: "",
   },
   {
-    src: "/christmas-2024/image_00ff1b.jpg", // Kids praying/performing
+    src: "/christmas-2024/image_00ff1b.jpg",
     alt: "Students performing a presentation on stage",
     className: "",
   },
   {
-    src: "/christmas-2024/image_00fe9c.jpg", // Two women talking
+    src: "/christmas-2024/image_00fe9c.jpg",
     alt: "Parents and community members sharing a moment",
-    className: "col-span-2", // Another good wide shot
+    className: "col-span-2",
   },
    {
-    src: "/christmas-2024/image_00febf.jpg", // Audience women in yellow
+    src: "/christmas-2024/image_00febf.jpg",
     alt: "Community members enjoying the Christmas festivities",
     className: "",
   },
@@ -64,6 +63,22 @@ export function ChristmasEventSection() {
           from this year's Christmas celebration at NADSCAM.
         </p>
       </div>
+
+      {/* --- NEW HERO VIDEO SECTION --- */}
+      <div className="w-full max-w-5xl mx-auto mb-12 rounded-2xl overflow-hidden shadow-xl border-4 border-white/50 bg-black">
+        <video 
+          className="w-full h-auto object-cover aspect-video"
+          autoPlay 
+          loop 
+          muted 
+          playsInline // Essential for iOS autoplay
+        >
+          {/* Ensure this path matches where you put the file in /public */}
+          <source src="/christmas-2024/event-highlight.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      {/* ----------------------------- */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px]">
         {christmasImages.map((image, index) => (

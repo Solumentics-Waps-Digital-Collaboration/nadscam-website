@@ -91,9 +91,41 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
           <p className="text-white/60">© {new Date().getFullYear()} NADSCAM. All rights reserved.</p>
-          <p className="text-white/60">
-            Designed with <Heart className="w-4 h-4 inline text-red-400" /> for inclusive education
-          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            {/* Original message */}
+            <p className="text-white/60 hidden sm:block">
+              Designed with <Heart className="w-4 h-4 inline text-red-400 mx-1" /> for inclusive education
+            </p>
+
+            {/* Separator for desktop */}
+            <span className="hidden sm:block text-white/20">|</span>
+
+            {/* Wapsdigital X Solumentics Signature */}
+            <div className="flex items-center gap-1 text-white/60">
+              <span>Powered by</span>
+              
+              <a 
+                href="https://wapsdigital.cloud" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-nadscam-green hover:text-white font-medium transition-colors ml-1"
+              >
+                Wapsdigital
+              </a>
+
+              <span className="px-1 text-white/40 font-bold text-xs select-none">X</span>
+
+              <a 
+                href="https://solumentics.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-nadscam-green hover:text-white font-medium transition-colors"
+              >
+                Solumentics
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
