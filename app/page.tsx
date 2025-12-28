@@ -16,6 +16,7 @@ import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { InstituteIntroSection } from "@/components/institute-intro-section"
 import { ChristmasEventSection } from "@/components/christmas-event-section"
+import { FounderSection } from "@/components/founder-section"
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <HeroSection />
       <InstituteIntroSection />
       <AboutSection />
+      <FounderSection />
       <MissionSection />
       <ServicesSection />
       <WhyUsSection />
