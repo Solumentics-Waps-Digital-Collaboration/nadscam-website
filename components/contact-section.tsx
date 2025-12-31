@@ -15,6 +15,7 @@ const contactInfo = [
     icon: Phone,
     title: "Call Us",
     content: "+237 675 070 671",
+    subtext: "+237 621 695 708",
     isWhatsApp: true,
   },
   {

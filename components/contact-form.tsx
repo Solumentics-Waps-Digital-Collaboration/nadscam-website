@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,26 +13,36 @@ export function ContactForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: ""
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+    // Clear error when user starts typing
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" })
+    }
+  }
+
+  const handleSelectChange = (value: string) => {
+    setFormData({ ...formData, subject: value })
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setErrors({})
 
-    const formData = new FormData(e.currentTarget)
-    const data = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("phone") as string,
-      subject: formData.get("subject") as string,
-      message: formData.get("message") as string,
-    }
-
     // Simple validation
     const newErrors: Record<string, string> = {}
-    if (!data.name) newErrors.name = "Name is required"
-    if (!data.email) newErrors.email = "Email is required"
-    if (!data.phone) newErrors.phone = "Phone is required"
-    if (!data.message) newErrors.message = "Message is required"
+    if (!formData.name) newErrors.name = "Name is required"
+    if (!formData.email) newErrors.email = "Email is required"
+    if (!formData.phone) newErrors.phone = "Phone is required"
+    if (!formData.message) newErrors.message = "Message is required"
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
@@ -42,17 +51,26 @@ export function ContactForm() {
 
     setIsLoading(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const res = await fetch('/api', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
 
-    setIsLoading(false)
-    setIsSuccess(true)
+      if (!res.ok) throw new Error('Failed to send')
 
-    // Reset after showing success
-    setTimeout(() => {
-      setIsSuccess(false)
-      e.currentTarget?.reset()
-    }, 3000)
+      // Success
+      setIsSuccess(true)
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" }) // Reset form
+
+      setTimeout(() => setIsSuccess(false), 5000)
+    } catch (error) {
+      console.error(error)
+      alert("Something went wrong. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (isSuccess) {
@@ -69,7 +87,14 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <Label htmlFor="name">Full Name *</Label>
-        <Input id="name" name="name" placeholder="Your full name" className={errors.name ? "border-destructive" : ""} />
+        <Input 
+          id="name" 
+          name="name" 
+          placeholder="Your full name" 
+          className={errors.name ? "border-destructive" : ""} 
+          value={formData.name}
+          onChange={handleChange}
+        />
         {errors.name && <p className="text-destructive text-sm mt-1">{errors.name}</p>}
       </div>
 
@@ -81,6 +106,8 @@ export function ContactForm() {
           type="email"
           placeholder="your@email.com"
           className={errors.email ? "border-destructive" : ""}
+          value={formData.email}
+          onChange={handleChange}
         />
         {errors.email && <p className="text-destructive text-sm mt-1">{errors.email}</p>}
       </div>
@@ -93,22 +120,24 @@ export function ContactForm() {
           type="tel"
           placeholder="+237 XXX XXX XXX"
           className={errors.phone ? "border-destructive" : ""}
+          value={formData.phone}
+          onChange={handleChange}
         />
         {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone}</p>}
       </div>
 
       <div>
         <Label htmlFor="subject">Subject</Label>
-        <Select name="subject">
+        <Select name="subject" onValueChange={handleSelectChange} value={formData.subject}>
           <SelectTrigger>
             <SelectValue placeholder="Select a subject" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="general">General Inquiry</SelectItem>
-            <SelectItem value="enrollment">Enrollment</SelectItem>
-            <SelectItem value="order">Order Resources</SelectItem>
-            <SelectItem value="partnership">Partnership</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
+            <SelectItem value="General Inquiry">General Inquiry</SelectItem>
+            <SelectItem value="Enrollment">Enrollment</SelectItem>
+            <SelectItem value="Order Resources">Order Resources</SelectItem>
+            <SelectItem value="Partnership">Partnership</SelectItem>
+            <SelectItem value="Other">Other</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -121,6 +150,8 @@ export function ContactForm() {
           placeholder="How can we help you?"
           rows={5}
           className={errors.message ? "border-destructive" : ""}
+          value={formData.message}
+          onChange={handleChange}
         />
         {errors.message && <p className="text-destructive text-sm mt-1">{errors.message}</p>}
       </div>
